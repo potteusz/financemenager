@@ -10,7 +10,7 @@ public class Income {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
     @Column(name = "amount")
     private double amount;
     @Column(name = "date")
