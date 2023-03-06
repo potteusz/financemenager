@@ -10,7 +10,7 @@ public class ExpenseRepository {
     public void createExpense(Expense expense) {
         Session session = DbConnection.getSession();
         Transaction transaction = session.beginTransaction();
-        session.merge(expense);
+        session.persist(expense);
         transaction.commit();
         session.close();
     }

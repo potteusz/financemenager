@@ -11,7 +11,7 @@ public class Expense {
     @Id
     @GeneratedValue
     @Column (name = "expense_id")
-    private int expenseId;
+    private Integer expenseId;
     @Column (name = "expense_amount")
     private double amount;
     @OneToOne(cascade = CascadeType.PERSIST)
