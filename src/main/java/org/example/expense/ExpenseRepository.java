@@ -1,6 +1,6 @@
 package org.example.expense;
 
-import org.example.MainConnection;
+import org.example.DbConnection;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -8,9 +8,9 @@ import org.hibernate.Transaction;
 public class ExpenseRepository {
 
     public void createExpense(Expense expense) {
-        Session session = MainConnection.getSession();
+        Session session = DbConnection.getSession();
         Transaction transaction = session.beginTransaction();
-        session.persist(expense);
+        session.merge(expense);
         transaction.commit();
         session.close();
     }

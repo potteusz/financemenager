@@ -9,7 +9,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
-public class MainConnection {
+public class DbConnection {
     private final static Configuration configuration = new Configuration();
     static {
         configuration.addAnnotatedClass(Category.class);

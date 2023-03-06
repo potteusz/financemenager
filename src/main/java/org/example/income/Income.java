@@ -21,8 +21,7 @@ public class Income {
     public Income() {
     }
 
-    public Income(int id, double amount, LocalDate date, String comment) {
-        this.id = id;
+    public Income(double amount, LocalDate date, String comment) {
         this.amount = amount;
         this.date = date;
         this.comment = comment;

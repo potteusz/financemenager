@@ -25,8 +25,7 @@ public class Expense {
     public Expense() {
     }
 
-    public Expense(int expenseId, double amount, Category category, LocalDate date, String comment) {
-        this.expenseId = expenseId;
+    public Expense(double amount, Category category, LocalDate date, String comment) {
         this.amount = amount;
         this.category = category;
         this.date = date;

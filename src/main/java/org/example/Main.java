@@ -10,13 +10,12 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Category category = new Category(1, "spozywcze");
+        Category category = new Category("spozywcze");
         CategoryRepository categoryRepository = new CategoryRepository();
         categoryRepository.createCategory(category);
-        Expense expense = new Expense(1, 202.1d, category, LocalDate.now(), "aaaaa" );
+        Expense expense = new Expense(202.1d, category, LocalDate.now(), "aaaaa" );
         ExpenseRepository expenseRepository = new ExpenseRepository();
         expenseRepository.createExpense(expense);
-
 
 
     }
