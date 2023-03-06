@@ -1,16 +1,22 @@
 package org.example.category;
 
 import jakarta.persistence.*;
+import org.example.expense.Expense;
+
+import java.util.List;
 
 @Entity
 @Table (name = "category")
 public class Category {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "category_id")
-    private Integer categoryId;
+    private int categoryId;
     @Column (name = "category_name")
     private String categoryName;
+
+    @OneToMany(mappedBy = "category")
+    private List<Expense> expences;
 
     public Category() {
     }
@@ -33,6 +39,14 @@ public class Category {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public List<Expense> getExpences() {
+        return expences;
+    }
+
+    public void setExpences(List<Expense> expences) {
+        this.expences = expences;
     }
 
     @Override

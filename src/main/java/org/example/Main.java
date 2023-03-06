@@ -26,12 +26,16 @@ public class Main {
                 Expense expense = new Expense(202.1d, category, LocalDate.now(), "aaaaa");
                 ExpenseRepository expenseRepository = new ExpenseRepository();
                 expenseRepository.createExpense(expense);
+
             break;
                 case 2:
                 Income income = new Income(2452.12d, LocalDate.now(), "komentarz");
                 IncomeRepository incomeRepository = new IncomeRepository();
                 incomeRepository.createIncome(income);
             break;
+
         }
+
+
     }
 }

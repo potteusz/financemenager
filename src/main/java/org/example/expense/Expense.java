@@ -11,11 +11,11 @@ public class Expense {
     @Id
     @GeneratedValue
     @Column (name = "expense_id")
-    private Integer expenseId;
+    private int expenseId;
     @Column (name = "expense_amount")
     private double amount;
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "cat_id", referencedColumnName = "category_id")
+    @ManyToOne
+    @JoinColumn(name = "cat_id")
     private Category category;
     @Column (name = "expense_date")
     private LocalDate date;
