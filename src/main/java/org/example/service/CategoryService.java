@@ -1,7 +1,12 @@
 package org.example.service;
 
+import org.example.DbConnection;
 import org.example.category.Category;
 import org.example.category.CategoryRepository;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+
+import java.util.List;
 
 public class CategoryService {
 
@@ -16,6 +21,14 @@ public class CategoryService {
             Category category = new Category(categoryName);
             categoryRepository.insertCategory(category);
         } else throw new IllegalArgumentException("Category name can not be empty");
+    }
+
+    public List<String> findAllCategories() {
+        Session session = DbConnection.getSession();
+        Query<String> query = session.createQuery("select c.categoryName from Category c", String.class);
+        List<String> categories = query.list();
+        session.close();
+        return categories;
     }
 
 }

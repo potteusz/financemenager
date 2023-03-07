@@ -6,7 +6,7 @@ import org.hibernate.Transaction;
 
 public class IncomeRepository {
 
-    public void createIncome(Income income) {
+    public void insertIncome(Income income) {
         Session session = DbConnection.getSession();
         Transaction transaction = session.beginTransaction();
         session.persist(income);

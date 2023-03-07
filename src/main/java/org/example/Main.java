@@ -7,35 +7,54 @@ import org.example.expense.ExpenseRepository;
 import org.example.income.Income;
 import org.example.income.IncomeRepository;
 import org.example.service.CategoryService;
+import org.example.service.ExpenseService;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
     private static final CategoryRepository categoryRepository = new CategoryRepository();
     private static final CategoryService categoryService = new CategoryService(categoryRepository);
+
+    private static final ExpenseRepository expenseRepository = new ExpenseRepository();
+
+    private static final ExpenseService expenseService = new ExpenseService(expenseRepository);
+
     public static void main(String[] args) {
 
+        while (true) {
             System.out.println("Podaj co chcesz zrobic:");
 
             Scanner scanner = new Scanner(System.in);
             int a = scanner.nextInt();
 
+
+
             switch (a) {
                 case 1:
-                    Category category = new Category("spozywcze");
-                    CategoryRepository categoryRepository = new CategoryRepository();
-                    categoryRepository.insertCategory(category);
+                    System.out.println("Kwota:");
+                    double b = scanner.nextDouble();
+                    System.out.println("Wybierz kategorię:");
+                    List<String> categories = categoryService.findAllCategories();
+                    System.out.println(String.join(",", categories));
+                    String name = scanner.next();
+                    Category name1 = new Category();
+                    for(int i = 0; i <= categories.size(); i++) {
+                        if(name.equals(categories.get(i))) {
+                            name1 = new Category(name);
+                            break;
+                        }
+                    }
+                    expenseService.createExpense(b, name1, LocalDate.now(), "komentarz");
 
-                    Expense expense = new Expense(202.1d, category, LocalDate.now(), "aaaaa");
-                    ExpenseRepository expenseRepository = new ExpenseRepository();
-                    expenseRepository.createExpense(expense);
+
                     break;
                 case 2:
                     Income income = new Income(2452.12d, LocalDate.now(), "komentarz");
                     IncomeRepository incomeRepository = new IncomeRepository();
-                    incomeRepository.createIncome(income);
+                    incomeRepository.insertIncome(income);
                     break;
 
                 case 12:
@@ -44,9 +63,11 @@ public class Main {
                     String categoryName = scanner.nextLine();
                     categoryService.createCategory(categoryName);
                     break;
+
+
+
             }
 
-
         }
-
+    }
 }

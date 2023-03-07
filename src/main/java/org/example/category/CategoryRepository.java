@@ -14,9 +14,7 @@ public class CategoryRepository {
         session.close();
     }
 
-    public static Category createCategory(String categoryName) {
-        return new Category(categoryName);
-    }
+
 
 
 

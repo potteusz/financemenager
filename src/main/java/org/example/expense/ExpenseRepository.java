@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 
 public class ExpenseRepository {
 
-    public void createExpense(Expense expense) {
+    public void insertExpense(Expense expense) {
         Session session = DbConnection.getSession();
         Transaction transaction = session.beginTransaction();
         session.persist(expense);
