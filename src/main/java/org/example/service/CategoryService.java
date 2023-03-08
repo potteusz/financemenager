@@ -23,12 +23,6 @@ public class CategoryService {
         } else throw new IllegalArgumentException("Category name can not be empty");
     }
 
-    public List<String> findAllCategories() {
-        Session session = DbConnection.getSession();
-        Query<String> query = session.createQuery("select c.categoryName from Category c", String.class);
-        List<String> categories = query.list();
-        session.close();
-        return categories;
-    }
+
 
 }
