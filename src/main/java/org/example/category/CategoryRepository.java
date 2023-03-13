@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public class CategoryRepository {
@@ -33,5 +34,14 @@ public class CategoryRepository {
         List<String> categories = query.list();
         session.close();
         return categories;
+    }
+
+    public void removeCategory(String category) {
+        Session session = DbConnection.getSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("delete from Category where categoryName = :categoryName").setParameter("categoryName", category);
+        query.executeUpdate();
+        transaction.commit();
+        session.close();
     }
 }

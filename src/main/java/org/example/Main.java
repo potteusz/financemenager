@@ -11,6 +11,7 @@ import org.example.service.ExpenseService;
 import org.example.service.IncomeService;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,9 +38,13 @@ public class Main {
             System.out.println("4 - remove income");
             System.out.println("5 - display all expenses and incomes");
             System.out.println("6 - display all expenses");
+            System.out.println("7 - display expenses based on date");
             System.out.println("8 - display expenses based on category");
+            System.out.println("9 - display sum of expenses based on category");
             System.out.println("10 - display all incomes");
+            System.out.println("11 - display account balance");
             System.out.println("12 - add new category");
+            System.out.println("13 - remove category");
 
             Scanner scanner = new Scanner(System.in);
             int a = scanner.nextInt();
@@ -55,7 +60,8 @@ public class Main {
                     System.out.println(String.join(",", categories));
                     String name = scanner.next();
                     System.out.println("Type comment:");
-                    String expComment = scanner.next();
+                    String expComment1 = scanner.nextLine();
+                    String expComment = scanner.nextLine();
                     expenseService.createExpense(expAmount, name, LocalDate.now(), expComment);
                     break;
 
@@ -98,6 +104,17 @@ public class Main {
                     allExpenses.forEach(e -> System.out.println(e.toString()));
                     break;
 
+                case 7:
+                    System.out.println("Enter start date:");
+                    String startDate = scanner.next();
+                    System.out.println("Enter end date:");
+                    String endDate = scanner.next();
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd,MM,yyyy");
+                    LocalDate start = LocalDate.parse(startDate, dateTimeFormatter);
+                    LocalDate end = LocalDate.parse(endDate, dateTimeFormatter);
+                    System.out.println(expenseRepository.getExpenseByDate(start, end));
+                    break;
+
                 case 8:
                     System.out.println("Select category:");
                     String categoryName = scanner.next();
@@ -105,10 +122,24 @@ public class Main {
                     expenseByCategory.forEach(e -> System.out.println(e.toString()));
                     break;
 
+                case 9:
+                    System.out.println("Select category:");
+                    String cat = scanner.next();
+                    List<Expense> expensesByCat = expenseRepository.getSumExpenseByCategory(cat);
+                    System.out.println(expensesByCat);
+                    break;
+
                 case 10:
                     System.out.println("All incomes:");
                     List<Income> allIncomes = incomeRepository.getAllIncomes();
                     allIncomes.forEach(e -> System.out.println(e.toString()));
+                    break;
+
+                case 11:
+                    double q = incomeRepository.getSumIncomes();
+                    double w = expenseRepository.getSumExpense();
+                    double result = q - w;
+                    System.out.println(result);
                     break;
 
                 case 12:
@@ -118,6 +149,13 @@ public class Main {
                     categoryService.createCategory(newCategory);
                     break;
 
+                case 13:
+                    System.out.println("Select category to remove:");
+                    List<String> categoryList = categoryRepository.findAllCategories();
+                    System.out.println(categoryList);
+                    String removedCat = scanner.next();
+                    categoryRepository.removeCategory(removedCat);
+                    break;
 
 
             }

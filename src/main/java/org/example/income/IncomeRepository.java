@@ -35,4 +35,13 @@ public class IncomeRepository {
         session.close();
     }
 
+    public double getSumIncomes() {
+        Session session = DbConnection.getSession();
+        Query query = session.createQuery("select i from Income i");
+        List<Income> incomes = query.list();
+        double sumIncome = incomes.stream().map(Income::getAmount).reduce(0d, Double::sum);
+        System.out.println(sumIncome);
+        return sumIncome;
+    }
+
 }

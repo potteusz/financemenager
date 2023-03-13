@@ -16,7 +16,7 @@ public class Category {
     private String categoryName;
 
     @OneToMany(mappedBy = "category")
-    private List<Expense> expences;
+    private List<Expense> expenses;
 
     public Category() {
     }
@@ -42,11 +42,11 @@ public class Category {
     }
 
     public List<Expense> getExpences() {
-        return expences;
+        return expenses;
     }
 
-    public void setExpences(List<Expense> expences) {
-        this.expences = expences;
+    public void setExpences(List<Expense> expenses) {
+        this.expenses = expenses;
     }
 
     @Override
