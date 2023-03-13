@@ -30,7 +30,16 @@ public class Main {
     public static void main(String[] args) {
 
         while (true) {
-            System.out.println("Podaj co chcesz zrobic:");
+            System.out.println("What would you like to do:");
+            System.out.println("1 - add new expense");
+            System.out.println("2 - add new income");
+            System.out.println("3 - remove expense");
+            System.out.println("4 - remove income");
+            System.out.println("5 - display all expenses and incomes");
+            System.out.println("6 - display all expenses");
+            System.out.println("8 - display expenses based on category");
+            System.out.println("10 - display all incomes");
+            System.out.println("12 - add new category");
 
             Scanner scanner = new Scanner(System.in);
             int a = scanner.nextInt();
@@ -39,73 +48,74 @@ public class Main {
 
             switch (a) {
                 case 1:
-                    System.out.println("Kwota:");
-                    double b = scanner.nextDouble();
-                    System.out.println("Wybierz kategorię:");
+                    System.out.println("Type amount:");
+                    double expAmount = scanner.nextDouble();
+                    System.out.println("Select category:");
                     List<String> categories = categoryRepository.findAllCategories();
                     System.out.println(String.join(",", categories));
                     String name = scanner.next();
-                    System.out.println("Komentarz:");
-                    String comment = scanner.next();
-                    expenseService.createExpense(b, name, LocalDate.now(), comment);
+                    System.out.println("Type comment:");
+                    String expComment = scanner.next();
+                    expenseService.createExpense(expAmount, name, LocalDate.now(), expComment);
                     break;
+
                 case 2:
-                    System.out.println("Kwota:");
-                    double c = scanner.nextDouble();
-                    System.out.println("Komentarz");
-                    String comment1 = scanner.next();
-                    incomeService.createIncome(c, LocalDate.now(), comment1);
+                    System.out.println("Type amount:");
+                    double incAmount = scanner.nextDouble();
+                    System.out.println("Type comment:");
+                    String incComment = scanner.next();
+                    incomeService.createIncome(incAmount, LocalDate.now(), incComment);
                     break;
 
                 case 3:
-                    System.out.println("Wybierz wydatek to be removed:");
-                    List<Expense> expenses2 = expenseRepository.getAllExpenses();
-                    expenses2.forEach(e -> System.out.println(e.toString()));
-                    Integer f = scanner.nextInt();
-                    expenseRepository.removeExpense(f);
+                    System.out.println("Select expense to be removed:");
+                    List<Expense> expenses = expenseRepository.getAllExpenses();
+                    expenses.forEach(e -> System.out.println(e.toString()));
+                    Integer remExp = scanner.nextInt();
+                    expenseRepository.removeExpense(remExp);
                     break;
 
                 case 4:
                     System.out.println("Select income to be removed:");
-                    List<Income> incomes4 = incomeRepository.getAllIncomes();
-                    incomes4.forEach(e -> System.out.println(e.toString()));
-                    Integer z = scanner.nextInt();
-                    incomeRepository.removeIncome(z);
-                    break;
-
-
-                case 5:
-                    System.out.println("Wydatki:");
-                    List<Expense> expenses1 = expenseRepository.getAllExpenses();
-                    expenses1.forEach(e -> System.out.println(e.toString()));
-                    System.out.println("Przychody:");
                     List<Income> incomes = incomeRepository.getAllIncomes();
                     incomes.forEach(e -> System.out.println(e.toString()));
+                    Integer remInc = scanner.nextInt();
+                    incomeRepository.removeIncome(remInc);
                     break;
 
-                case 6:
-                    List<Expense> expenses = expenseRepository.getAllExpenses();
-                    expenses.forEach(e -> System.out.println(e.toString()));
-                    break;
-
-                case 8:
-                    System.out.println("Podaj kategorie:");
-                    String catName = scanner.next();
-                    List<Expense> expenses3 = expenseRepository.getExpenseByCategory(catName);
-                    expenses3.forEach(e -> System.out.println(e.toString()));
-                    break;
-
-                case 10:
-                    System.out.println("Wszystkie przychody:");
+                case 5:
+                    System.out.println("Expenses:");
+                    List<Expense> expenses1 = expenseRepository.getAllExpenses();
+                    expenses1.forEach(e -> System.out.println(e.toString()));
+                    System.out.println("Incomes:");
                     List<Income> incomes1 = incomeRepository.getAllIncomes();
                     incomes1.forEach(e -> System.out.println(e.toString()));
                     break;
 
+                case 6:
+                    System.out.println("All expenses:");
+                    List<Expense> allExpenses = expenseRepository.getAllExpenses();
+                    allExpenses.forEach(e -> System.out.println(e.toString()));
+                    break;
+
+                case 8:
+                    System.out.println("Select category:");
+                    String categoryName = scanner.next();
+                    List<Expense> expenseByCategory = expenseRepository.getExpenseByCategory(categoryName);
+                    expenseByCategory.forEach(e -> System.out.println(e.toString()));
+                    break;
+
+                case 10:
+                    System.out.println("All incomes:");
+                    List<Income> allIncomes = incomeRepository.getAllIncomes();
+                    allIncomes.forEach(e -> System.out.println(e.toString()));
+                    break;
+
                 case 12:
-                    System.out.println("Podaj nazwę kategorii:");
+                    System.out.println("Type new category name:");
                     scanner.nextLine();
-                    String categoryName = scanner.nextLine();
-                    categoryService.createCategory(categoryName);
+                    String newCategory = scanner.nextLine();
+                    categoryService.createCategory(newCategory);
                     break;
 
 
